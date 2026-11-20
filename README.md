@@ -21,21 +21,6 @@ export WANDB_PROJECT_NAME=tf-vsm
 `external/cleandift` is a git submodule and is empty until initialized. GroundingDINO/SAM are only needed for
 regenerating the supervision data, not for TF-VSM inference/evaluation.
 
-## Core implementation
-
-- `mtg/utils/correspondence.py`
-  - `tf_vsm_score(...)`: Eq. (7)-(8), the closed-form continuous readout.
-  - `compute_tf_vsm_metric(...)`: drop-in replacement for p1's `compute_vsm_metric`.
-  - `TF_VSM_ABLATION_KEYS`: all readout variants used by the six ablations.
-- `mtg/models/mtg_model.py`: `compute_metrics` records `tf_vsm` alongside legacy `vsm_*` and `oracle`.
-- `mtg/utils/metrics.py`: Pearson/Spearman correlation with the inpainting oracle.
-- `mtg/utils/tf_vsm_runtime.py`: lightweight model loading and benchmark evaluation helpers.
-- `configs/training/train_tf_vsm.yaml`: the extended retraining recipe.
-- `configs/evaluation/controlled_benchmark.yaml`: 100-pair benchmark, 20/80 leakage-free split.
-
-Small correctness fixes over p1 are included: the first aggregation layer now receives its learned mixing weight,
-and the backbone-freezing loop runs after the trainable heads are built.
-
 ## Inference on one pair
 
 ```python
@@ -103,14 +88,6 @@ python scripts/run_ablations.py \
 ```
 
 The CSV rows are keyed by `run`, `epoch`, and `metric`, so a single table covers all six ablations.
-
-## Data expectations
-
-The repository does not bundle the 4,912 generated supervision pairs or the original HuggingFace benchmark; set
-`MTG_DATASET_PATH`/`--dataset-path` to the generated dataset. For custom benchmarks, use a local JSON file in
-`configs/evaluation/controlled_benchmark.yaml` with `source: json` and `json_path`, where each entry contains image
-paths for `image_1_inpainted`, `image_2_original`, both object masks, and both inpainted-part masks. The oracle is
-computed as `1 - |R1| / |O1|` from those masks, exactly as in both papers.
 
 ## Citation
 
