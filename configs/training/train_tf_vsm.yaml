@@ -1,0 +1,70 @@
+defaults:
+  - default
+  - _self_
+
+# TF-VSM retraining recipe (paper Sections 3.2 / 4.1).
+# 4,912 supervision pairs, AdamW lr=5e-4, 14 epochs, alpha=10.
+lr: 5.0e-4
+weight_decay: 0.0
+epochs: 14
+scheduler_step: null  # constant learning rate; p1's /10 every 10 epochs is removed
+load_ckpt: null
+losses:
+  - semantic_in
+  - semantic_out
+  - visual_in
+  - visual_out
+
+metrics:
+  - tf_vsm
+  - vsm
+  - oracle
+metric_thresholds: [0.5, 0.6, 0.7]
+
+data:
+  train:
+    dataset_name: "automated"
+    dataset_path: null
+    img_size: null
+    num_samples: -1  # use all 4,912 filtered pairs
+    seed: 42
+    train_val_split: 0.9  # 4,421 train / 491 validation
+    filtering:
+      skewness_thresh: 1.3
+      lpips_thresh: 0.15
+      source_target_rel_sz_diff: 0.1
+      matching_score_thresh: 0.7
+    augmentations:
+      enabled: true
+      horizontal_flip_prob: 0.5
+      color_jitter_prob: 0.5
+      brightness_range: [0.9, 1.1]
+      contrast_range: [0.8, 1.3]
+      saturation_range: [0.8, 1.3]
+  val:
+    dataset_name: "automated"
+    dataset_path: null
+    img_size: null
+    num_samples: -1
+    seed: 42
+    train_val_split: 0.9
+    filtering:
+      matching_score_thresh: 0.7
+    augmentations:
+      enabled: false
+
+model:
+  name: "MindTheGlitchModel"
+  freeze_cleandift: true
+  lr_alpha: 10
+  resnet:
+    num_blocks: 1
+    projection_dim: 384
+    num_norm_groups: 32
+  final_feat_resolution: 48
+  feat_type:
+    - "us6"
+    - "us7"
+    - "us8"
+    - "us9"
+    - "us10"

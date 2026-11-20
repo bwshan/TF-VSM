@@ -1,0 +1,10 @@
+defaults:
+  - train_tf_vsm
+  - _self_
+
+# Same retraining recipe, but the metric readout also records every variant
+# used by the six diagnostic ablations in Section 4.6 of the paper.
+metrics:
+  - tf_vsm_ablation
+  - vsm
+  - oracle

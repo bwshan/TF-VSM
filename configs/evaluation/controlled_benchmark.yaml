@@ -1,0 +1,19 @@
+# Controlled 100-pair inconsistency benchmark with ground-truth inpainting oracle.
+# The leakage-free protocol uses a disjoint 20-pair selection split for model
+# selection and an 80-pair held-out split only for the final report.
+name: controlled_inconsistency
+dataset:
+  source: huggingface
+  repo_id: abdo-eldesokey/mtg-dataset
+  split: test
+  num_pairs: 100
+  selection_pairs: 20
+  test_pairs: 80
+  seed: 42
+
+img_size: [768, 768]
+metrics:
+  - tf_vsm_ablation
+  - vsm
+  - oracle
+metric_thresholds: [0.5, 0.6, 0.7]
