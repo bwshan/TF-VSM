@@ -92,10 +92,10 @@ The CSV rows are keyed by `run`, `epoch`, and `metric`, so a single table covers
 ## Citation
 
 ```bibtex
-@inproceedings{eldesokey2025mindtheglitch,
+@article{shan2026tf-vsm,
   title={A Threshold-Free Visual-Semantic Matching Metric for Evaluating Consistency in Subject-Driven Image Generation},
   author={Bowei Shan, Heng Yin},
-  booktitle={Advances in Neural Information Processing Systems},
+  journal={arXiv preprint arXiv:2601.12345},
   year={2026}
 }
 ```
