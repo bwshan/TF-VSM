@@ -19,20 +19,6 @@ export WANDB_PROJECT_NAME=tf-vsm
 ```
 
 
-## Inference on one pair
-
-```python
-from mtg.utils.tf_vsm_runtime import load_model, build_transform
-
-model, cfg, device, dtype = load_model(
-    "configs/training/train_tf_vsm.yaml",
-    checkpoint_path="outputs/tf_vsm/best.pt",
-)
-transform = build_transform(cfg.data.train.img_size or [768, 768])
-out = model.inference(img1_p, img2_p, obj_mask1, obj_mask2, transform=transform)
-print(out["metrics"]["tf_vsm"][0])   # no thresholds, higher = more consistent
-```
-
 
 ## Retraining
 
