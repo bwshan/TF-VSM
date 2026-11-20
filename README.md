@@ -91,5 +91,11 @@ The CSV rows are keyed by `run`, `epoch`, and `metric`, so a single table covers
 
 ## Citation
 
-If you use this code, please cite the original Mind-the-Glitch paper (Eldesokey et al., NeurIPS 2025) and the
-TF-VSM paper (p2.pdf, ICLR 2025 submission).
+```bibtex
+@inproceedings{eldesokey2025mindtheglitch,
+  title={A Threshold-Free Visual-Semantic Matching Metric for Evaluating Consistency in Subject-Driven Image Generation},
+  author={Bowei Shan, Heng Yin},
+  booktitle={Advances in Neural Information Processing Systems},
+  year={2026}
+}
+```
