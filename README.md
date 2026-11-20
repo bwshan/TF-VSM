@@ -95,7 +95,7 @@ The CSV rows are keyed by `run`, `epoch`, and `metric`, so a single table covers
 @article{shan2026tf-vsm,
   title={A Threshold-Free Visual-Semantic Matching Metric for Evaluating Consistency in Subject-Driven Image Generation},
   author={Bowei Shan, Heng Yin},
-  journal={arXiv preprint arXiv:2601.12345},
+  journal={arXiv preprint arXiv:2611.19780},
   year={2026}
 }
 ```
