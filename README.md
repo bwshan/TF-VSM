@@ -18,8 +18,6 @@ export MTG_DATASET_PATH=/path/to/generated_pairs   # 4,912 supervision pairs
 export WANDB_PROJECT_NAME=tf-vsm
 ```
 
-`external/cleandift` is a git submodule and is empty until initialized. GroundingDINO/SAM are only needed for
-regenerating the supervision data, not for TF-VSM inference/evaluation.
 
 ## Inference on one pair
 
@@ -35,8 +33,6 @@ out = model.inference(img1_p, img2_p, obj_mask1, obj_mask2, transform=transform)
 print(out["metrics"]["tf_vsm"][0])   # no thresholds, higher = more consistent
 ```
 
-`vsm_0.5/0.6/0.7` are still returned for comparison, and `notebooks/playground.ipynb` keeps the original
-visualization workflow.
 
 ## Retraining
 
@@ -47,8 +43,6 @@ python scripts/train_tf_vsm.py \
   --output-dir outputs/tf_vsm
 ```
 
-The script evaluates **only the 20-pair selection split** after every epoch, saves `epoch_XX.pt` and `best.pt`, and
-writes `training_log.json`. The 80-pair held-out split is never read during training.
 
 ## Leakage-free evaluation
 
@@ -64,15 +58,11 @@ python scripts/evaluate_tf_vsm.py \
   --split test --output-dir outputs/evaluation
 ```
 
-Outputs include per-pair metric values, Pearson r, and Spearman ρ as JSON and CSV.
-
-Global baselines from Tables 1/2 can be reproduced with public checkpoints:
 
 ```bash
 python scripts/evaluate_baselines.py --split test --baselines clip_i dino_v2
 ```
 
-VLM / RefVNLI protocols depend on external APIs and are not bundled.
 
 ## Ablations
 
@@ -87,7 +77,6 @@ python scripts/run_ablations.py \
   --run full outputs/tf_vsm --run half outputs/tf_vsm_half --run a1 outputs/tf_vsm_a1
 ```
 
-The CSV rows are keyed by `run`, `epoch`, and `metric`, so a single table covers all six ablations.
 
 ## Citation
 
